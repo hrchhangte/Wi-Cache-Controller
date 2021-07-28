@@ -1,0 +1,10 @@
+Chunk Name,Chunk Size,Chunk Start Index,Chunk Last Index,Chunk Hit Count,File Name,File Size,File Hit Count,File Popularity,File Split,192.168.1.10,192.168.1.12,192.168.1.14
+file3.mp4_0,19692761,1,19692761,0,file3.mp4,59078285,0,0.25,true,Y,Y,Y
+file3.mp4_1,19692761,19692762,39385522,0,file3.mp4,59078285,0,0.25,true,Y,N,N
+file3.mp4_2,19692763,39385523,59078285,0,file3.mp4,59078285,0,0.25,true,N,Y,N
+file2.mp4_0,19692761,1,19692761,0,file2.mp4,59078285,0,0.25,true,Y,Y,Y
+file2.mp4_1,19692761,19692762,39385522,0,file2.mp4,59078285,0,0.25,true,N,Y,N
+file2.mp4_2,19692763,39385523,59078285,0,file2.mp4,59078285,0,0.25,true,N,N,Y
+file1.mp4_0,19692761,1,19692761,0,file1.mp4,59078285,0,0.25,true,Y,Y,Y
+file1.mp4_1,19692761,19692762,39385522,0,file1.mp4,59078285,0,0.25,true,Y,N,N
+file1.mp4_2,19692763,39385523,59078285,0,file1.mp4,59078285,0,0.25,true,N,N,Y

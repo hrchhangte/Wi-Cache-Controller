@@ -1,0 +1,12 @@
+agent-configuration
+192.168.1.10	1073741824
+192.168.1.12	1073741824
+192.168.1.14	1073741824
+#
+split-files		yes
+min-chunk-size		19692761
+max-chunk-count	5
+file-coding		none
+#
+applications
+net.floodlightcontroller.odin.applications.WiCacheAppTest

@@ -1,0 +1,13 @@
+Agent IP,Total Cache Size,Free Cache Size,Chunks Cached Count,Chunks Download Count
+192.168.1.10,68157440,9079154,2,0
+,,,,
+Chunk Name,Chunk Size,Chunk Hit Count (Local),Time of Cached,Last Accessed Time
+file2.mp4_1,29539143,0,2018-07-14 15:32:51.499,2018-07-14 15:32:51.499
+file3.mp4_1,29539143,0,2018-07-14 15:32:51.498,2018-07-14 15:32:51.498
+,,,,
+Agent IP,Total Cache Size,Free Cache Size,Chunks Cached Count,Chunks Download Count
+192.168.1.12,68157440,9079156,2,0
+,,,,
+Chunk Name,Chunk Size,Chunk Hit Count (Local),Time of Cached,Last Accessed Time
+file2.mp4_0,29539142,0,2018-07-14 15:32:51.498,2018-07-14 15:32:51.498
+file3.mp4_0,29539142,0,2018-07-14 15:32:51.498,2018-07-14 15:32:51.498
