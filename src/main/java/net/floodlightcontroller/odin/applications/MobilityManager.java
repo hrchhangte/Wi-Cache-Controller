@@ -42,6 +42,7 @@ public class MobilityManager extends OdinApplication {
 	 *
 	 * Example of params in poolfile imported in MOBILITY_PARAMS:
 	 *
+<<<<<<< HEAD
 	 * MOBILITY_PARAMS.HYSTERESIS_THRESHOLD = 15000;
 	 * MOBILITY_PARAMS.SIGNAL_THRESHOLD = 200;
 	 * MOBILITY_PARAMS.NUMBER_OF_TRIGGERS = 5;  
@@ -50,6 +51,16 @@ public class MobilityManager extends OdinApplication {
 	 * With these parameters a hand off will start when:
 	 *
 	 * At least 5 packets below 200 (-56dBm) have been received by a client during 1000 ms, and a previous hand off has not happened in the last 15000 ms
+=======
+	 * MOBILITY_PARAMS.HYSTERESIS_THRESHOLD = 15;
+	 * MOBILITY_PARAMS.SIGNAL_THRESHOLD = -56;
+	 * MOBILITY_PARAMS.NUMBER_OF_TRIGGERS = 5;  
+	 * MOBILITY_PARAMS.TIME_RESET_TRIGGER = 1;
+	 *
+	 * With these parameters a hand off will start when:
+	 *
+	 * At least 5 packets below -56dBm have been received from a specific client during 1000 ms, and a previous hand off has not happened in the last 15000 ms
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	 *
 	 */
 

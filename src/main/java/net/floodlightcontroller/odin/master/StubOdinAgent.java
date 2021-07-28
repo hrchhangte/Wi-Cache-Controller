@@ -29,6 +29,10 @@ class StubOdinAgent implements IOdinAgent {
 	private int freq;
 	private int chan;
 	private int lastScan;
+<<<<<<< HEAD
+=======
+	private int txpower;
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	
 	@Override
 	public void addClientLvap(OdinClient oc) {
@@ -160,6 +164,20 @@ class StubOdinAgent implements IOdinAgent {
 		return null;	
 	}
 	
+<<<<<<< HEAD
 
 
 }
+=======
+	public int getTxPower() {
+		return txpower;
+	}
+	
+	@Override
+	public String getScannedStaRssi (){
+		return null;
+	}
+
+
+}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf

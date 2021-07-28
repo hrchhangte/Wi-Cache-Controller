@@ -51,6 +51,10 @@ class OdinAgent implements IOdinAgent {
 	private long lastHeard;
 	private int channel;
 	private int lastScan;
+<<<<<<< HEAD
+=======
+	private int txpower;
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 
 	private ConcurrentSkipListSet<OdinClient> clientList = new ConcurrentSkipListSet<OdinClient>();
 
@@ -63,6 +67,11 @@ class OdinAgent implements IOdinAgent {
 	private static final String READ_HANDLER_SCAN_CLIENT = "scan_client";
 	private static final String READ_HANDLER_SCAN_APS = "scan_APs";
 	private static final String READ_HANDLER_SCANING_FLAGS = "scanning_flags";
+<<<<<<< HEAD
+=======
+	private static final String READ_HANDLER_TXPOWER = "txpower";
+	private static final String READ_HANDLER_STA_RSSI = "sta_rssi";
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	private static final String WRITE_HANDLER_ADD_VAP = "add_vap";
 	private static final String WRITE_HANDLER_SET_VAP = "set_vap";
 	private static final String WRITE_HANDLER_REMOVE_VAP = "remove_vap";
@@ -73,15 +82,24 @@ class OdinAgent implements IOdinAgent {
 	private static final String WRITE_HANDLER_CHANNEL_SWITCH_ANNOUNCEMENT = "channel_switch_announcement";
 	private static final String WRITE_HANDLER_SCAN_CLIENT = "scan_client";
 	private static final String WRITE_HANDLER_SCAN_APS = "scan_APs";
+<<<<<<< HEAD
 	private static final String WRITE_HANDLER_SEND_MESUREMENT_BEACON = "send_mesurement_beacon";
+=======
+	private static final String WRITE_HANDLER_SEND_MEASUREMENT_BEACON = "send_measurement_beacon";
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	private static final String WRITE_HANDLER_SCANING_FLAGS = "scanning_flags";
 	private static final String ODIN_AGENT_ELEMENT = "odinagent";
 
 	private final String detectionAgentIP = setDetectorIpAddress();
 	private static final String DETECTION_AGENT_ELEMENT = "detectionagent";
 
+<<<<<<< HEAD
 	private final int TX_STAT_NUM_PROPERTIES = 7;
 	private final int RX_STAT_NUM_PROPERTIES = 7;
+=======
+	private final int TX_STAT_NUM_PROPERTIES = 8;
+	private final int RX_STAT_NUM_PROPERTIES = 8;
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	private final int MTX_DISTANCE_RX_STAT_NUM_PROPERTIES = 1;
 	private final int ODIN_AGENT_PORT = 6777;
 
@@ -635,6 +653,7 @@ class OdinAgent implements IOdinAgent {
 	 * @ If request is accepted return 1, otherwise, return 0
 	 */
 	@Override
+<<<<<<< HEAD
 	public int requestScannedStationsStats (int channel, String ssid) {
 		log.info("Sending READ_HANDLER_SCANNING_FLAGS");
 		String flags = invokeReadHandler(READ_HANDLER_SCANING_FLAGS);
@@ -645,13 +664,29 @@ class OdinAgent implements IOdinAgent {
 		int mesurement_beacon_flag = Integer.parseInt(row[2].trim());
 		log.info("READ_HANDLER_SCANING_FLAGS ---- " + " client_scanning_flag:" + client_scanning_flag + " AP_scanning_flag:" + AP_scanning_flag + " mesurement_beacon_flag:" + mesurement_beacon_flag);
     	if (client_scanning_flag == 1 || AP_scanning_flag == 1 || mesurement_beacon_flag == 1) 
+=======
+	public int requestScannedStationsStats (int channel, String ssid) { // Log dissabled
+		//log.info("Sending READ_HANDLER_SCANNING_FLAGS");
+		String flags = invokeReadHandler(READ_HANDLER_SCANING_FLAGS);
+		//log.info("Received flags: " + flags);
+		String row[] = flags.split(" ");
+		int client_scanning_flag = Integer.parseInt(row[0].trim());
+		int AP_scanning_flag = Integer.parseInt(row[1].trim());
+		int measurement_beacon_flag = Integer.parseInt(row[2].trim());
+		//log.info("READ_HANDLER_SCANING_FLAGS ---- " + " client_scanning_flag:" + client_scanning_flag + " AP_scanning_flag:" + AP_scanning_flag + " measurement_beacon_flag:" + measurement_beacon_flag);
+    	if (client_scanning_flag == 1 || AP_scanning_flag == 1 || measurement_beacon_flag == 1) 
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 				return (0);
 
 		StringBuilder sb = new StringBuilder();
 		sb.append(ssid);
 		sb.append(" ");
 		sb.append(channel);
+<<<<<<< HEAD
 		log.info("Sending WRITE_HANDLER_SCAN_APS " + sb.toString());
+=======
+		//log.info("Sending WRITE_HANDLER_SCAN_APS " + sb.toString());
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 		invokeWriteHandler(WRITE_HANDLER_SCAN_APS, sb.toString());
 		return (1);
 	}
@@ -704,8 +739,13 @@ class OdinAgent implements IOdinAgent {
 	/**
 	 * Request scanned stations statistics from the agent
 	 * @param agentAddr InetAddress of the agent
+<<<<<<< HEAD
 	 * @param #channel to send mesurement beacon
 	 * @param time interval to send mesurement beacon
+=======
+	 * @param #channel to send measurement beacon
+	 * @param time interval to send measurement beacon
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	 * @param ssid to scan (e.g odin_init)
 	 * @ If request is accepted return 1, otherwise, return 0
 	 */
@@ -717,24 +757,39 @@ class OdinAgent implements IOdinAgent {
 		String row[] = flags.split(" ");
 		int client_scanning_flag = Integer.parseInt(row[0].trim());
 		int AP_scanning_flag = Integer.parseInt(row[1].trim());
+<<<<<<< HEAD
 		int mesurement_beacon_flag = Integer.parseInt(row[2].trim());
 		log.info("READ_HANDLER_SCANING_FLAGS ---- " + " client_scanning_flag:" + client_scanning_flag + " AP_scanning_flag:" + AP_scanning_flag + " mesurement_beacon_flag:" + mesurement_beacon_flag);
     	if (client_scanning_flag == 1 || AP_scanning_flag == 1 || mesurement_beacon_flag == 1) 
+=======
+		int measurement_beacon_flag = Integer.parseInt(row[2].trim());
+		log.info("READ_HANDLER_SCANING_FLAGS ---- " + " client_scanning_flag:" + client_scanning_flag + " AP_scanning_flag:" + AP_scanning_flag + " measurement_beacon_flag:" + measurement_beacon_flag);
+    	if (client_scanning_flag == 1 || AP_scanning_flag == 1 || measurement_beacon_flag == 1) 
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 				return (0);
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(ssid);
 		sb.append(" ");
 		sb.append(channel);
+<<<<<<< HEAD
 		log.info("Sending WRITE_HANDLER_SEND_MESUREMENT_BEACON " + sb.toString());
 		invokeWriteHandler(WRITE_HANDLER_SEND_MESUREMENT_BEACON, sb.toString());
+=======
+		log.info("Sending WRITE_HANDLER_SEND_MEASUREMENT_BEACON " + sb.toString());
+		invokeWriteHandler(WRITE_HANDLER_SEND_MEASUREMENT_BEACON, sb.toString());
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 		return (1);
 	}
 
 	
 
 	/**
+<<<<<<< HEAD
 	 * Stop sending mesurement beacon from the agent
+=======
+	 * Stop sending measurement beacon from the agent
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	 * 
 	 * @param agentAddr InetAddress of the agent
 	 * 
@@ -743,17 +798,45 @@ class OdinAgent implements IOdinAgent {
 	public int stopSendMesurementBeacon () {
 		int client_scanning_flag = 0;
 		int AP_scanning_flag = 0;
+<<<<<<< HEAD
 		int mesurement_beacon_flag = 0;
+=======
+		int measurement_beacon_flag = 0;
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 		StringBuilder sb = new StringBuilder();
 		sb.append(client_scanning_flag);
 		sb.append(" ");
 		sb.append(AP_scanning_flag);
 		sb.append(" ");
+<<<<<<< HEAD
 		sb.append(mesurement_beacon_flag);
+=======
+		sb.append(measurement_beacon_flag);
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 		log.info("Sending WRITE_HANDLER_SCANING_FLAGS " + sb.toString());
 		invokeWriteHandler(WRITE_HANDLER_SCANING_FLAGS, sb.toString());
 		return (1);
 	}
+<<<<<<< HEAD
+=======
+	
+	
+	/**
+	 * Get TxPower from the agent
+	 * 
+	 * @param agentAddr InetAddress of the agent
+	 * 
+	 */
+	@Override
+	public int getTxPower() {
+		int txpower = 0;
+		String handler = invokeReadHandler(READ_HANDLER_TXPOWER);
+		txpower = Integer.parseInt(handler.trim());
+		if(txpower != this.txpower)
+			this.txpower = txpower;
+		return this.txpower;
+	}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 
 	/**
 	 * Returns the Detector IP address added in poolfile
@@ -765,4 +848,20 @@ class OdinAgent implements IOdinAgent {
 		String detectorIp = OdinMaster.getDetectorIpAddress();
 		return detectorIp;	
 	}
+<<<<<<< HEAD
 }
+=======
+	
+	/**
+	 * Retreive scanned wi5 stations rssi from the agent
+	 * @param agentAddr InetAddress of the agent
+	 * @return Key-Value entries of each recorded rssi for each wi5 station 
+	 */
+	public String getScannedStaRssi () { // Test with String in App trying to get lower response time
+    
+		String stats = invokeReadHandler(READ_HANDLER_STA_RSSI);
+
+		return stats;
+	}
+}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf

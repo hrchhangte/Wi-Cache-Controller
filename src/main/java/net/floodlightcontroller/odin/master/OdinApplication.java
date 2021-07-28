@@ -11,6 +11,11 @@ import net.floodlightcontroller.odin.master.OdinClient;
 import net.floodlightcontroller.odin.master.OdinEventSubscription;
 import net.floodlightcontroller.odin.master.OdinMaster.MobilityParams;
 import net.floodlightcontroller.odin.master.OdinMaster.ScannParams;
+<<<<<<< HEAD
+=======
+import net.floodlightcontroller.odin.master.OdinMaster.ChannelAssignmentParams;
+import net.floodlightcontroller.odin.master.OdinMaster.SmartApSelectionParams;
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 import net.floodlightcontroller.odin.master.OdinEventFlowDetection;
 import net.floodlightcontroller.util.MACAddress;
 
@@ -317,4 +322,32 @@ public abstract class OdinApplication implements Runnable {
 	protected final ScannParams getInterferenceParams (){
 		return odinApplicationInterfaceToMaster.getInterferenceParams();
 	}
+<<<<<<< HEAD
+=======
+	protected final ChannelAssignmentParams getChannelAssignmentParams (){
+		return odinApplicationInterfaceToMaster.getChannelAssignmentParams();
+	}
+	protected final SmartApSelectionParams getSmartApSelectionParams (){
+		return odinApplicationInterfaceToMaster.getSmartApSelectionParams();
+	}
+	
+	/**
+	 * Get TxPower from and specific agent (AP)
+	 * 
+	 * @param Agent InetAddress
+	 * @return TxPower in dBm
+	 */
+	protected final int getTxPowerFromAgent (InetAddress agentAddr){
+		return odinApplicationInterfaceToMaster.getTxPowerFromAgent(pool, agentAddr); 
+	}
+	
+	/**
+	 * Retreive scanned wi5 stations rssi from the agent
+	 * @param agentAddr InetAddress of the agent
+	 * @return Key-Value entries of each recorded rssi for each wi5 station 
+	 */
+	protected final String getScannedStaRssiFromAgent (InetAddress agentAddr) {
+		return odinApplicationInterfaceToMaster.getScannedStaRssiFromAgent(pool, agentAddr);
+	}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 }

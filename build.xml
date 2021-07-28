@@ -65,6 +65,11 @@
         <include name="jython-2.5.2.jar"/>
         <include name="libthrift-0.7.0.jar"/>
         <include name="commons-io-2.5.jar"/>
+<<<<<<< HEAD
+=======
+        <include name="javabuilder.jar"/>
+        <include name="wi5.jar"/>
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
     </patternset>
 
     <path id="classpath">

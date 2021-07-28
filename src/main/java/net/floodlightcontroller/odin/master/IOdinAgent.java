@@ -244,11 +244,31 @@ public interface IOdinAgent {
 	public int stopSendMesurementBeacon ();
 	
 	/**
+<<<<<<< HEAD
+=======
+	 * Get TxPower
+	 * 
+	 * @return TxPower in dBm
+	 * 
+	 */
+	public int getTxPower();
+	
+	/**
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	 * Returns the Detector IP address added in poolfile
 	 * 
 	 * @return Detector InetAddress
 	 */
 	public String setDetectorIpAddress ();
 	
+<<<<<<< HEAD
+=======
+	/**
+	 * Retreive scanned wi5 stations rssi from the agent
+	 * @param agentAddr InetAddress of the agent
+	 * @return Key-Value entries of each recorded rssi for each wi5 station 
+	 */
+	public String getScannedStaRssi ();	
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 		
 }

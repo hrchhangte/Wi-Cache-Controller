@@ -8,6 +8,11 @@ import java.util.Set;
 import net.floodlightcontroller.odin.master.OdinClient;
 import net.floodlightcontroller.odin.master.OdinMaster.MobilityParams;
 import net.floodlightcontroller.odin.master.OdinMaster.ScannParams;
+<<<<<<< HEAD
+=======
+import net.floodlightcontroller.odin.master.OdinMaster.ChannelAssignmentParams;
+import net.floodlightcontroller.odin.master.OdinMaster.SmartApSelectionParams;
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 import net.floodlightcontroller.util.MACAddress;
 
 interface IOdinMasterToApplicationInterface {
@@ -250,5 +255,40 @@ interface IOdinMasterToApplicationInterface {
 	 * 
 	 */
 	ScannParams getInterferenceParams ();
+<<<<<<< HEAD
+=======
+	
+	/**
+	 * Return ChannelAssignmentParams for ChannelAssignment App
+	 * 
+	 * @return ChannelAssignmentParams
+	 * 
+	 */
+	ChannelAssignmentParams getChannelAssignmentParams ();
+	
+	/**
+	 * Return SmartApSelectionParams for SmartApSelection App
+	 * 
+	 * @return SmartApSelectionParams
+	 * 
+	 */
+	SmartApSelectionParams getSmartApSelectionParams ();
+	
+	/**
+	 * Get txpower from and specific agent (AP)
+	 * 
+	 * @param Pool
+	 * @param Agent InetAddress
+	 * @return TxPower in dBm
+	 */
+	int getTxPowerFromAgent (String pool, InetAddress agentAddr);
+	
+	/**
+	 * Retreive scanned wi5 stations rssi from the agent
+	 * @param agentAddr InetAddress of the agent
+	 * @return Key-Value entries of each recorded rssi for each wi5 station 
+	 */
+	String getScannedStaRssiFromAgent (String pool, InetAddress agentAddr);
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 
 }

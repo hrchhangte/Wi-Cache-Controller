@@ -155,9 +155,19 @@ HashSet<OdinClient> clients;
 					if (isWi5Lvap) {
 						continue;
 					}		
+<<<<<<< HEAD
 					System.out.println("\t\tAP of client: none");
 					System.out.println("\t\tChannel of AP: none");
 					System.out.println("\t\tCode: non-Wi-5 Equipment");		
+=======
+					System.out.println("\t\tAP of client: unknown");
+					System.out.println("\t\tChannel of AP: unknown");
+					if(vals_entry_rx.getValue().get("equipment").equals("AP")){
+                        System.out.println("\t\tCode: non-Wi-5 AP");
+					}else{
+                        System.out.println("\t\tCode: non-Wi-5 STA");
+					}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 					System.out.println("");		
 				}
 		    }

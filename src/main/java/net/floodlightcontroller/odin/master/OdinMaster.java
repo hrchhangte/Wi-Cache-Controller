@@ -83,6 +83,13 @@ public class OdinMaster implements IFloodlightModule, IOFSwitchListener, IOdinMa
 	
 	private static ScannParams interference_params; // ShowScannedStationsStatistics parameters
 	
+<<<<<<< HEAD
+=======
+	private static ChannelAssignmentParams channel_params; // ChannelAssignment parameters
+	
+	private static SmartApSelectionParams smartap_params; // SmartApSelection parameters
+	
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 	// some defaults
 	static private final String DEFAULT_POOL_FILE = "poolfile";
 	static private final String DEFAULT_CLIENT_LIST_FILE = "odin_client_list";
@@ -977,6 +984,54 @@ public class OdinMaster implements IFloodlightModule, IOFSwitchListener, IOdinMa
 		return OdinMaster.interference_params;
 		
 	}
+<<<<<<< HEAD
+=======
+	
+	/**
+	 * Get ChannelAssignment parameters
+	 * 
+	 * @return ChannelAssignment parameters
+	 */
+	@Override
+	public ChannelAssignmentParams getChannelAssignmentParams (){
+		return OdinMaster.channel_params;
+		
+	}
+	
+	/**
+	 * Get SmartApSelection parameters
+	 * 
+	 * @return SmartApSelection parameters
+	 */
+	@Override
+	public SmartApSelectionParams getSmartApSelectionParams (){
+		return OdinMaster.smartap_params;
+		
+	}
+	
+	/**
+	 * Get TxPower from and specific agent (AP)
+	 * 
+	 * @param Pool
+	 * @param Agent InetAddress
+	 * @return TxPower in dBm
+	 */
+	@Override
+	public int getTxPowerFromAgent (String pool, InetAddress agentAddr) {
+		//log.info("Getting TxPower OdinMaster");
+		return agentManager.getAgent(agentAddr).getTxPower();
+	}
+	
+	/**
+	 * Retreive scanned wi5 stations rssi from the agent
+	 * @param agentAddr InetAddress of the agent
+	 * @return Key-Value entries of each recorded rssi for each wi5 station 
+	 */
+	@Override
+	public String getScannedStaRssiFromAgent (String pool, InetAddress agentAddr) {
+		return agentManager.getAgent(agentAddr).getScannedStaRssi();
+	}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 
 	//********* from IFloodlightModule **********//
 
@@ -1187,6 +1242,58 @@ public class OdinMaster implements IFloodlightModule, IOFSwitchListener, IOdinMa
 						continue;
 					}
 					
+<<<<<<< HEAD
+=======
+					if (fields[0].equals("CHANNEL")){							// CHANNEL ASSIGNMENT
+					    if(fields.length==11){// Filename added in poolfile
+                          channel_params = new ChannelAssignmentParams(Integer.parseInt(fields[1]),Integer.parseInt(fields[2]),Integer.parseInt(fields[3]),Integer.parseInt(fields[4]),Integer.parseInt(fields[5]),Integer.parseInt(fields[6]),Integer.parseInt(fields[7]), Integer.parseInt(fields[8]), fields[9], fields[10]);
+                        }else{
+                          channel_params = new ChannelAssignmentParams(Integer.parseInt(fields[1]),Integer.parseInt(fields[2]),Integer.parseInt(fields[3]),Integer.parseInt(fields[4]),Integer.parseInt(fields[5]),Integer.parseInt(fields[6]),Integer.parseInt(fields[7]), Integer.parseInt(fields[8]), fields[9], "");
+                        }
+						log.info("ChannelAssignment configured:");
+						log.info("\t\tTime_to_start: " + channel_params.time_to_start);
+						log.info("\t\tPause between scans: " + channel_params.pause);
+						log.info("\t\tScanning_interval: " + channel_params.scanning_interval);
+						log.info("\t\tAdded_time: " + channel_params.added_time);
+						log.info("\t\tNumber of scans: " + channel_params.number_scans);
+						log.info("\t\tIdle time: " + channel_params.idle_time);
+						log.info("\t\tChannel: " + channel_params.channel);
+						log.info("\t\tMethod: " + channel_params.method);
+						log.info("\t\tMode: " + channel_params.mode);
+						if(channel_params.filename.length()>0){
+                            log.info("\t\tFilename: " + channel_params.filename);
+                        }else{
+                            log.info("\t\tFilename not assigned");
+                        }
+						br.mark(1000);
+						continue;
+					}
+					
+					if (fields[0].equals("SMARTAPSELECTION")){							// SMART AP SELECTION
+                        if(fields.length==10){// Filename added in poolfile
+                            smartap_params = new SmartApSelectionParams(Integer.parseInt(fields[1]),Integer.parseInt(fields[2]),Integer.parseInt(fields[3]),Double.parseDouble(fields[4]),Long.parseLong(fields[5]), Double.parseDouble(fields[6]),Integer.parseInt(fields[7]), fields[8], fields[9]);
+                        }else{
+                            smartap_params = new SmartApSelectionParams(Integer.parseInt(fields[1]),Integer.parseInt(fields[2]),Integer.parseInt(fields[3]),Double.parseDouble(fields[4]),Long.parseLong(fields[5]), Double.parseDouble(fields[6]),Integer.parseInt(fields[7]), fields[8], "");
+                        }
+						log.info("SmartApSelection configured:");
+						log.info("\t\tTime_to_start: " + smartap_params.time_to_start);
+						log.info("\t\tScanning_interval: " + smartap_params.scanning_interval);
+						log.info("\t\tAdded_time: " + smartap_params.added_time);
+						log.info("\t\tSignal_threshold: " + smartap_params.signal_threshold);
+						log.info("\t\tHysteresis_threshold: " + smartap_params.hysteresis_threshold);
+						log.info("\t\tPrevius_data_weight (alpha): " + smartap_params.weight);
+						log.info("\t\tPause between scans: " + smartap_params.pause);
+						log.info("\t\tMode: " + smartap_params.mode);
+						if(smartap_params.filename.length()>0){
+                            log.info("\t\tFilename: " + smartap_params.filename);
+                        }else{
+                            log.info("\t\tFilename not assigned");
+                        }
+						br.mark(1000);
+						continue;
+					}
+					
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 					if (fields[0].equals("NAME")){									// NEW POOL
 						br.reset();
 						break;
@@ -1553,5 +1660,58 @@ public class OdinMaster implements IFloodlightModule, IOFSwitchListener, IOdinMa
 			this.filename = filename;
 		}
 	}
+<<<<<<< HEAD
+=======
+	
+	public class ChannelAssignmentParams {
+		public int time_to_start;
+		public int pause;
+		public int scanning_interval;
+		public int added_time;
+		public int number_scans;
+		public int idle_time;
+		public int channel;
+		public int method;
+		public String mode;
+		public String filename;
+
+		public ChannelAssignmentParams (int time_to_start, int pause, int scanning_interval, int added_time, int number_scans, int idle_time, int channel, int method, String mode, String filename) {
+			this.time_to_start = time_to_start*1000;
+			this.pause = pause*1000;
+			this.scanning_interval = scanning_interval*1000;
+			this.added_time = added_time*1000;
+			this.number_scans = number_scans;
+			this.idle_time = idle_time;
+			this.channel = channel;
+			this.method = method;
+			this.mode = mode;
+			this.filename = filename;
+		}
+	}
+	
+	public class SmartApSelectionParams {
+		public int time_to_start;
+		public int scanning_interval;
+		public int added_time;
+		public Double signal_threshold;
+		public long hysteresis_threshold;
+		public Double weight;
+		public int pause;
+		public String mode;
+		public String filename;
+
+		public SmartApSelectionParams (int time_to_start, int scanning_interval, int added_time, Double signal_threshold, long hysteresis_threshold, Double weight, int pause, String mode, String filename) {
+			this.time_to_start = time_to_start*1000;
+			this.scanning_interval = scanning_interval;
+			this.added_time = added_time;
+			this.signal_threshold = signal_threshold;
+			this.hysteresis_threshold = hysteresis_threshold;
+			this.weight = weight;
+			this.pause = pause*1000;
+            this.mode = mode;
+			this.filename = filename;
+		}
+	}
+>>>>>>> 78f03ece47772e23c8e9432c8a5ce3c0b2eab7bf
 
 }
