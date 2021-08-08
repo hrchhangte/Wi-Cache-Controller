@@ -77,7 +77,7 @@ CC:61:E5:29:25:E2 192.168.1.114 00:1B:B3:67:6B:14 wicache-bssid-test-1 <br />
 
 2. In order to run the Wi-Cache module as part of the Odin framework, the pool file (poolfile, referred in ./src/main/resources/floodlightdefault.properties) should include the "net.floodlightcontroller.odin.applications.WiCacheMain" as an Odin application. Also, the BSSID broadcast by the Wi-Cache network and the Wi-Cache APs/agents should be specified. An example configuration of the pool file for the Wi-Cache-Controller is below. <br /> <br />
 
-# Pool-1 <br />
+#Pool-1 <br />
 NAME pool-1 <br />
 NODES 192.168.1.10 192.168.1.12 <br />
 NETWORKS odin-bssid-test-1 <br />
