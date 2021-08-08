@@ -32,7 +32,7 @@ The Wi-Cache-Controller is configured using an initial configuration file (initF
 5. The initial configuration of the caches of the Wi-Cache APs. This tells you which which segments are present in each Wi-Cache APs. If this is 'none', then the Wi-Cache-Controller splits the files, and distribute the segments across the segments. <br />
 6. The cache replacement policy. <br />
 7. The Wi-Cache application that extends the behaviour the Wi-Cache-Controller. This can be empty. <br /> <br />
-A sample configuration is shown below: <br /> <br />
+An example configuration is shown below: <br /> <br />
 #list of Wi-Cache agents showing their IP addresses <br />
 #and storage (in bytes) allocated for caching <br />
 agent-configuration <br />
