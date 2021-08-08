@@ -58,7 +58,7 @@ net.floodlightcontroller.odin.applications.ContentDelivery <br />
 
 **Other Wi-Cache-Controller (Odin) configuration**
 
-If DHCP is not used in the network, then each client in the network is assigned an IP addresses and a BSSID (for the LVAP). This is done in the file odin_client_list (referred in ./src/main/resources/floodlightdefault.properties). An example configuration is shown below, where the format of each row is (MAC address of the client, IP address of the client, LVAP BSSID, SSID of the Wi-Cache WiFi network <br />
+1. If DHCP is not used in the network, then each client in the network is assigned an IP addresses and a BSSID (for the LVAP). This is done in the file odin_client_list (referred in ./src/main/resources/floodlightdefault.properties). An example configuration is shown below, where the format of each row is (MAC address of the client, IP address of the client, LVAP BSSID, SSID of the Wi-Cache WiFi network <br />
 
 C0:25:E9:2F:5E:53 192.168.1.101 00:1B:B3:67:6B:01 wicache-bssid-test-1 <br />
 54:35:30:D6:A4:D3 192.168.1.102 00:1B:B3:67:6B:02 wicache-bssid-test-1 <br />
@@ -74,3 +74,11 @@ CC:B0:DA:A8:EE:DD 192.168.1.109 00:1B:B3:67:6B:09 wicache-bssid-test-1 <br />
 C0:25:E9:2F:5E:53 192.168.1.112 00:1B:B3:67:6B:12 wicache-bssid-test-1 <br />
 40:88:05:69:5F:65 192.168.1.113 00:1B:B3:67:6B:13 wicache-bssid-test-1 <br />
 CC:61:E5:29:25:E2 192.168.1.114 00:1B:B3:67:6B:14 wicache-bssid-test-1 <br />
+
+2. In order to run the Wi-Cache module as part of the Odin framework, the pool file (poolfile, referred in ./src/main/resources/floodlightdefault.properties) should include the "net.floodlightcontroller.odin.applications.WiCacheMain" as an Odin application. Also, the BSSID broadcast by the Wi-Cache network and the Wi-Cache APs/agents should be specified. An example configuration of the pool file for the Wi-Cache-Controller is below. <br /> <br />
+
+# Pool-1 <br />
+NAME pool-1 <br />
+NODES 192.168.1.10 192.168.1.12 <br />
+NETWORKS odin-bssid-test-1 <br />
+APPLICATION net.floodlightcontroller.odin.applications.WiCacheMain 
