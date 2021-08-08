@@ -12,7 +12,7 @@ import net.floodlightcontroller.odin.master.OdinApplication;
 
 public class WiCacheAppContentDelivery extends WiCacheApplication {
 	
-	protected static Logger log = LoggerFactory.getLogger(CacheController.class);	
+	protected static Logger log = LoggerFactory.getLogger(WiCacheMobility.class);	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub		

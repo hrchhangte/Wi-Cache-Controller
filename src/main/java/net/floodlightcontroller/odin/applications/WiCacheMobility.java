@@ -31,9 +31,9 @@ import net.floodlightcontroller.util.MACAddress;
 import sun.management.resources.agent_fr;
 import sun.net.InetAddressCachePolicy;
 
-public class CacheController extends OdinApplication {
+public class WiCacheMobility extends OdinApplication {
 	
-	protected static Logger log = LoggerFactory.getLogger(CacheController.class);
+	protected static Logger log = LoggerFactory.getLogger(WiCacheMobility.class);
 	private ServerSocket clntLstnSock, agntLstnSock, agntLstnSockData;
 	private Socket clntSockMain, agntSockMain, agntSockMainData;	
 	private int agntMesgPortLocal = 8000, agntDataPortLocal = 8001, clntMesgPortLocal = 9000;		
@@ -78,7 +78,7 @@ public class CacheController extends OdinApplication {
 			handleUpdate();
 			
 			//start a thread to handle clients' movements
-			//handleMobility();			
+			handleMobility();			
 			
 			//listen for incoming requests from clients
 			handleClient();

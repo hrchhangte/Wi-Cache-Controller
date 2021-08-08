@@ -37,7 +37,7 @@ public class WiCacheAgent {
 	
 	public WiCacheAgent(InetAddress agentAddr, long totalCacheSize){
 		// TODO Auto-generated constructor stub
-		log = LoggerFactory.getLogger(CacheController.class);
+		log = LoggerFactory.getLogger(WiCacheMobility.class);
 		this.setAgentAddr(agentAddr);
 		this.setTotalCacheSize(totalCacheSize);
 		this.setFreeCacheSize(totalCacheSize);
@@ -473,7 +473,7 @@ class WiCacheChunkEntry{
 	public WiCacheChunkEntry(String chunkName, String fileName, long chunkSize, Timestamp timeOfCached) {
 		// TODO Auto-generated constructor stub
 		
-		log = LoggerFactory.getLogger(CacheController.class);
+		log = LoggerFactory.getLogger(WiCacheMobility.class);
 		this.setChunkName(chunkName);
 		this.setFileName(fileName);
 		this.setChunkSize(chunkSize);

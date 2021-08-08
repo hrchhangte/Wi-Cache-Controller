@@ -24,7 +24,7 @@ public class WiCacheFileRequest {
 	public WiCacheFileRequest(String fileName, InetAddress clientAddr, InetAddress agentAddr) {
 		// TODO Auto-generated constructor stub
 		
-		log = LoggerFactory.getLogger(CacheController.class);
+		log = LoggerFactory.getLogger(WiCacheMobility.class);
 		this.setFileName(fileName);
 		this.setClientAddr(clientAddr);
 		this.setAgentAddr(agentAddr);

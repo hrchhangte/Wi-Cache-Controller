@@ -119,6 +119,10 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 	
 	private int udpPort; //udp port corres. to udpSock	
 	
+	private String cacheInitFile; //the file that contains the cache initialization for the APs	
+	
+	private String cacheReplacePolicy; //the policy that is used for cache replacement
+	
 	/*
 	 * following are used only if coding is enabled
 	 * coding used is Solomon coding
@@ -350,16 +354,16 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 		
 		try {
 			
-			log = LoggerFactory.getLogger(CacheController.class);
-			
-			this.ctrIP = "192.168.1.145";
+			log = LoggerFactory.getLogger(WiCacheMobility.class);
+						
+			//this.ctrIP = "192.168.1.145";
 			
 			this.clntSockMain = null;
-			this.clntMesgPort = 9000;
+			this.clntMesgPort = 9000; //can be set here or read from a file
 			this.clntLstnSock = new ServerSocket(this.clntMesgPort);
 			
 			this.agntSockMain = null;
-			this.agntMesgPort = 8000;
+			this.agntMesgPort = 8000; //can be set here or read from a file
 			this.agntLstnSock = new ServerSocket(this.agntMesgPort);		
 			this.agntSockMap = new ConcurrentHashMap<InetAddress, Socket>();										
 			
@@ -380,8 +384,10 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 			this.minChunkSize = 0;
 			this.maxChunkCount = 0;
 			this.fileCoding = null;
+			this.cacheInitFile = null;
+			this.cacheReplacePolicy = null;
 						
-			this.udpPort = 7000;
+			this.udpPort = 7000; //can be set here or read from a file
 			this.udpSock = new DatagramSocket(udpPort);			
 			
 			//Data structures
@@ -435,12 +441,12 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 						log.info("readInitFile: split-files: "+this.splitFiles);
 					}
 					
-					else if(words[0].equals("min-chunk-size")) {
+					else if(words[0].equals("min-segment-size")) {
 						this.minChunkSize = Long.parseLong(words[1]);
 						log.info("readInitFile: min-chunk-size: "+this.minChunkSize);
 					}
 					
-					else if(words[0].equals("max-chunk-count")) {
+					else if(words[0].equals("max-segment-count")) {
 						this.maxChunkCount = Integer.parseInt(words[1]);
 						log.info("readInitFile: max-chunk-count: "+this.maxChunkCount);
 					}
@@ -448,7 +454,20 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 					else if(words[0].equals("file-coding")) {
 						this.fileCoding = words[1];							
 						log.info("readInitFile: file-coding: "+this.fileCoding);
-					}				
+					}
+					
+					//currently this is not used, instead
+					//after chunks/segments are created from file
+					//they are automatically distributed across the APs					
+					else if(words[0].equals("cache-init-file")) {
+						this.cacheInitFile = words[1];
+						log.info("readInitFile: cache-init-file: "+this.cacheInitFile);
+					}
+					
+					else if(words[0].equals("cache-replacement")) {
+						this.cacheReplacePolicy = words[1];
+						log.info("readInitFile: cache-replacement: "+this.cacheReplacePolicy);
+					}
 					
 					else if(words[0].equals("applications")) {							
 						
@@ -456,8 +475,7 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 						words = line.split("\\s+");
 						
 						this.appName = words[0];						
-						log.info("readInitFile: appName: "+this.appName);							
-							
+						log.info("readInitFile: appName: "+this.appName);														
 					}		    	
 			    	 
 			    }//while
@@ -534,6 +552,12 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 			while((line=br.readLine())!=null) {
 								
 				words = line.split("\\s+");
+				
+				//ignore comment lines
+				if(words[0].equals("#")) {
+					continue;
+				}
+				
 				String fileName = words[0];
 				long fileSize = Long.parseLong(words[1]);
 				double filePopularity = Double.parseDouble(words[2]);
@@ -748,7 +772,7 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 				boolean fileSplit = false;
 				
 				if(split.equals("true")) {
-					log.info("yes sir");
+					//log.info("yes sir");
 					fileSplit = true;
 				}
 				
@@ -1161,6 +1185,14 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 						//create an entry in agent-socket mapping hash-table, replaces any previous entry
 						agntSockMap.put(agntSockMain.getInetAddress(), agntSockMain);
 						
+						//retrieve the socket handle for the agent
+						Socket agntSock = agntSockMap.get(agntSockMain.getRemoteSocketAddress());
+						PrintWriter agntWrtr = new PrintWriter(agntSock.getOutputStream());		
+
+						//set the size of cache of the agent
+						agntWrtr.write("SET_CACHE" +" "+wicacheAgentList.get(agntSockMain.getRemoteSocketAddress()).getTotalCacheSize()+" ");
+						log.info("SET_CACHE" +" "+wicacheAgentList.get(agntSockMain.getRemoteSocketAddress()).getTotalCacheSize()+" ");
+						
 					}
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -1234,7 +1266,7 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 							String fileName = tokens[1];				
 							
 							//send the no. of chunks back to the client
-							//message format: <CHUNK_COUNT>	 <chunkCount>
+							//message format: <SEG_COUNT>	 <segCount>
 							int chunkCount = wicacheFileList.get(fileName).getChunkList().size();
 							PrintWriter agntWrtr = new PrintWriter(clntSockMain.getOutputStream());			
 							agntWrtr.println("CHUNK_COUNT"+" "+chunkCount+" ");
@@ -1248,10 +1280,10 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 								clntObj = iter.next();
 								if(clntObj.getIpAddress().equals(clientAddr)){
 									
-									log.info("handleClient: Client object found!");
+									log.info("handleClient: Client object found!");				
 									
-									
-									InetAddress desiredAgent = InetAddress.getByName("192.168.1.12");
+									//InetAddress desiredAgent = InetAddress.getByName("192.168.1.12");
+									InetAddress desiredAgent = clntObj.getLvap().getAgent().getIpAddress();
 									log.info("Assinging client to agent: "+desiredAgent);
 									handoffClientToAp(clntObj.getMacAddress(), desiredAgent);
 									handoffClientToAp(clntObj.getMacAddress(), desiredAgent);
@@ -1282,7 +1314,9 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 						
 							//log.info("file name: "+getFileRequestObject().getFileName());
 							
+							//update the download list for the client first
 							sequential();
+							//then instruct the agent to send the segments
 							sendToClientThread(fileName, clientAddr);
 							
 						}//while(true)
@@ -1622,38 +1656,48 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 				
 				try {			
 					
-						//update agent object, agent list
-						Timestamp timeOfCached = new Timestamp(System.currentTimeMillis());						
-						WiCacheChunkEntry chunkEntryObj = new WiCacheChunkEntry(chunkObj.getChunkName(), chunkObj.getFileName(), chunkObj.getChunkSize(), timeOfCached);						
-						wicacheAgentList.get(agentAddr).addChunkEntry(chunkObj.getChunkName(), chunkEntryObj);
-						
-						//update chunk object, file object, file list												
-						wicacheFileList.get(chunkObj.getFileName()).getChunkList().get(chunkObj.getChunkNo()).addAgent(agentAddr);
-						
-						//open parent file of file chunk
-						FileInputStream fis = new FileInputStream(new File(fileStoragePath+chunkObj.getFileName()));
-						DataInputStream dis = new DataInputStream(fis);
-							
-						FileOutputStream fos = new FileOutputStream(nfsSharesPath+agentAddr.getHostAddress()+"/"+chunkObj.getChunkName());
-						    		 
-						//add/copy/send the file				
-						dis.skip(chunkObj.getChunkStartIndex()-1); //starting index is start index - 1
-						long remaining = chunkObj.getChunkSize();					
-						byte[] buffer = new byte[4096];
-						int read =0;
-										
-						while(remaining > 0) {
+					//retrieve the socket handle for the agent
+					Socket agntSock = agntSockMap.get(agentAddr);
+					PrintWriter agntWrtr = new PrintWriter(agntSock.getOutputStream());		
+
+					//instructs the agent to add the file					
+					agntWrtr.write("ADD_FILE" +" "+chunkObj.getChunkName()+" "+chunkObj.getChunkSize()+" ");
+					log.info("ADD_FILE" +" "+chunkObj.getChunkName()+" "+chunkObj.getChunkSize()+" ");
+
+					agntWrtr.flush();	
+					
+					//update agent object, agent list
+					Timestamp timeOfCached = new Timestamp(System.currentTimeMillis());						
+					WiCacheChunkEntry chunkEntryObj = new WiCacheChunkEntry(chunkObj.getChunkName(), chunkObj.getFileName(), chunkObj.getChunkSize(), timeOfCached);						
+					wicacheAgentList.get(agentAddr).addChunkEntry(chunkObj.getChunkName(), chunkEntryObj);
+
+					//update chunk object, file object, file list												
+					wicacheFileList.get(chunkObj.getFileName()).getChunkList().get(chunkObj.getChunkNo()).addAgent(agentAddr);
+
+					//open parent file of file chunk
+					FileInputStream fis = new FileInputStream(new File(fileStoragePath+chunkObj.getFileName()));
+					DataInputStream dis = new DataInputStream(fis);
+
+					FileOutputStream fos = new FileOutputStream(nfsSharesPath+agentAddr.getHostAddress()+"/"+chunkObj.getChunkName());
+
+					//add/copy/send the file				
+					dis.skip(chunkObj.getChunkStartIndex()-1); //starting index is start index - 1
+					long remaining = chunkObj.getChunkSize();					
+					byte[] buffer = new byte[4096];
+					int read =0;
+
+					while(remaining > 0) {
 						//log.info("read and write");
 						read = dis.read(buffer,0,buffer.length);
 						fos.write(buffer,0,read);					
 						remaining = remaining - read;
-						}
-						    		 
-						fos.close();
-						dis.close();		
-						
-						log.info("addChunkToCache: "+chunkObj.getChunkName()+" added to "+agentAddr+" succesfully");
-					
+					}
+
+					fos.close();
+					dis.close();		
+
+					log.info("addChunkToCache: "+chunkObj.getChunkName()+" added to "+agentAddr+" succesfully");
+
 				}catch(Exception e){
 					e.printStackTrace();
 				}
@@ -1677,6 +1721,15 @@ public class WiCacheMain extends OdinApplication implements WiCacheInterface {
 					// TODO Auto-generated method stub
 					
 					try {
+						
+						//retrieve the socket handle for the agent
+						Socket agntSock = agntSockMap.get(agentAddr);
+						PrintWriter agntWrtr = new PrintWriter(agntSock.getOutputStream());		
+
+						//instructs the agent to delete the file						
+						agntWrtr.write("DEL_FILE" +" "+chunkObj.getChunkName()+" "+chunkObj.getChunkSize()+" ");
+						log.info("DEL_FILE" +" "+chunkObj.getChunkName()+" "+chunkObj.getChunkSize()+" ");
+						
 						
 						//update chunk object, file object, file list
 						wicacheFileList.get(chunkObj.getFileName()).getChunkList().get(chunkObj.getChunkNo()).delAgent(agentAddr);

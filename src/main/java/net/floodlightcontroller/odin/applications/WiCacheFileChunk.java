@@ -41,7 +41,7 @@ public class WiCacheFileChunk {
 	private ArrayList<InetAddress> agentList;	
 	
 	public WiCacheFileChunk(String chunkName, int chunkNo, long chunkSize, long chunkStartIndex, long chunkLastIndex, String fileName, long fileSize) {
-		log = LoggerFactory.getLogger(CacheController.class);
+		log = LoggerFactory.getLogger(WiCacheMobility.class);
 		
 		this.setFileName(fileName);	
 		this.setFileSize(fileSize); //needed for setChunkSize

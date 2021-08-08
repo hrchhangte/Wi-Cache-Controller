@@ -30,7 +30,7 @@ public class WiCacheFile {
 	private boolean fileSplit; //whether the file is split into chunks/segments
 	
 	public WiCacheFile(String fileName, long fileSize, double filePopularity, boolean fileSplit) {
-		log = LoggerFactory.getLogger(CacheController.class);
+		log = LoggerFactory.getLogger(WiCacheMobility.class);
 		this.setFileName(fileName);
 		this.setFileSize(fileSize);
 		this.setFileHitCount(0);	
