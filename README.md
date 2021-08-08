@@ -32,9 +32,7 @@ The Wi-Cache-Controller is configured using an initial configuration file (initF
 5. The initial configuration of the caches of the Wi-Cache APs. This tells you which which segments are present in each Wi-Cache APs. If this is 'none', then the Wi-Cache-Controller splits the files, and distribute the segments across the segments. <br />
 6. The cache replacement policy. <br />
 7. The Wi-Cache application that extends the behaviour the Wi-Cache-Controller. This can be empty. <br /> <br />
-
 A sample configuration is shown below: <br /> 
-
 #list of Wi-Cache agents showing their IP addresses <br />
 #and storage (in bytes) allocated for caching <br />
 agent-configuration <br />
@@ -59,7 +57,6 @@ net.floodlightcontroller.odin.applications.ContentDelivery <br />
 **Other Wi-Cache-Controller (Odin) configuration**
 
 1. If DHCP is not used in the network, then each client in the network is assigned an IP addresses and a BSSID (for the LVAP). This is done in the file odin_client_list (referred in ./src/main/resources/floodlightdefault.properties). An example configuration is shown below, where the format of each row is (MAC address of the client, IP address of the client, LVAP BSSID, SSID of the Wi-Cache WiFi network <br />
-
 C0:25:E9:2F:5E:53 192.168.1.101 00:1B:B3:67:6B:01 wicache-bssid-test-1 <br />
 54:35:30:D6:A4:D3 192.168.1.102 00:1B:B3:67:6B:02 wicache-bssid-test-1 <br />
 18:5E:0F:A1:87:E5 192.168.1.103 00:1B:B3:67:6B:03 wicache-bssid-test-1 <br />
@@ -76,7 +73,6 @@ C0:25:E9:2F:5E:53 192.168.1.112 00:1B:B3:67:6B:12 wicache-bssid-test-1 <br />
 CC:61:E5:29:25:E2 192.168.1.114 00:1B:B3:67:6B:14 wicache-bssid-test-1 <br />
 
 2. In order to run the Wi-Cache module as part of the Odin framework, the pool file (poolfile, referred in ./src/main/resources/floodlightdefault.properties) should include the "net.floodlightcontroller.odin.applications.WiCacheMain" as an Odin application. Also, the BSSID broadcast by the Wi-Cache network and the Wi-Cache APs/agents should be specified. An example configuration of the pool file for the Wi-Cache-Controller is below. <br /> <br />
-
 #Pool-1 <br />
 NAME pool-1 <br />
 NODES 192.168.1.10 192.168.1.12 <br />
