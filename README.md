@@ -60,21 +60,17 @@ net.floodlightcontroller.odin.applications.ContentDelivery <br />
 
 If DHCP is not used in the network, then each client in the network is assigned an IP addresses and a BSSID (for the LVAP). This is done in the file odin_client_list (referred in ./src/main/resources/floodlightdefault.properties). An example configuration is shown below, where the format of each row is <MAC address of the client> <IP address of the client> <LVAP BSSID> <SSID of the Wi-Cache WiFi network> <br />
 
-C0:25:E9:2F:5E:53 192.168.1.101 00:1B:B3:67:6B:01 wicache-bssid-test-1
-54:35:30:D6:A4:D3 192.168.1.102 00:1B:B3:67:6B:02 wicache-bssid-test-1
-18:5E:0F:A1:87:E5 192.168.1.103 00:1B:B3:67:6B:03 wicache-bssid-test-1
-54:35:30:D6:93:FF 192.168.1.104 00:1B:B3:67:6B:04 wicache-bssid-test-1
-84:16:F9:0E:42:68 192.168.1.105 00:1B:B3:67:6B:05 wicache-bssid-test-1
-D4:6E:0E:15:56:63 192.168.1.106 00:1B:B3:67:6B:06 wicache-bssid-test-1
-0C:60:76:36:20:FA 192.168.1.107 00:1B:B3:67:6B:07 wicache-bssid-test-1
-18:5E:0F:A1:88:12 192.168.1.108 00:1B:B3:67:6B:08 wicache-bssid-test-1
-CC:B0:DA:A8:EE:DD 192.168.1.109 00:1B:B3:67:6B:09 wicache-bssid-test-1
-18:5E:0F:57:20:BA 192.168.1.110 00:1B:B3:67:6B:10 wicache-bssid-test-1
-74:DF:BF:88:37:9D 192.168.1.111 00:1B:B3:67:6B:11 wicache-bssid-test-1
-C0:25:E9:2F:5E:53 192.168.1.112 00:1B:B3:67:6B:12 wicache-bssid-test-1
-40:88:05:69:5F:65 192.168.1.113 00:1B:B3:67:6B:13 wicache-bssid-test-1
-CC:61:E5:29:25:E2 192.168.1.114 00:1B:B3:67:6B:14 wicache-bssid-test-1
-
-
-CC:61:E5:29:25:E2 192.168.1.114 00:1B:B3:67:6B:14 odin-bssid-test-1
-
+C0:25:E9:2F:5E:53 192.168.1.101 00:1B:B3:67:6B:01 wicache-bssid-test-1 <br />
+54:35:30:D6:A4:D3 192.168.1.102 00:1B:B3:67:6B:02 wicache-bssid-test-1 <br />
+18:5E:0F:A1:87:E5 192.168.1.103 00:1B:B3:67:6B:03 wicache-bssid-test-1 <br />
+54:35:30:D6:93:FF 192.168.1.104 00:1B:B3:67:6B:04 wicache-bssid-test-1 <br />
+84:16:F9:0E:42:68 192.168.1.105 00:1B:B3:67:6B:05 wicache-bssid-test-1 <br />
+D4:6E:0E:15:56:63 192.168.1.106 00:1B:B3:67:6B:06 wicache-bssid-test-1 <br />
+0C:60:76:36:20:FA 192.168.1.107 00:1B:B3:67:6B:07 wicache-bssid-test-1 <br />
+18:5E:0F:A1:88:12 192.168.1.108 00:1B:B3:67:6B:08 wicache-bssid-test-1 <br />
+CC:B0:DA:A8:EE:DD 192.168.1.109 00:1B:B3:67:6B:09 wicache-bssid-test-1 <br />
+18:5E:0F:57:20:BA 192.168.1.110 00:1B:B3:67:6B:10 wicache-bssid-test-1 <br />
+74:DF:BF:88:37:9D 192.168.1.111 00:1B:B3:67:6B:11 wicache-bssid-test-1 <br />
+C0:25:E9:2F:5E:53 192.168.1.112 00:1B:B3:67:6B:12 wicache-bssid-test-1 <br />
+40:88:05:69:5F:65 192.168.1.113 00:1B:B3:67:6B:13 wicache-bssid-test-1 <br />
+CC:61:E5:29:25:E2 192.168.1.114 00:1B:B3:67:6B:14 wicache-bssid-test-1 <br />
