@@ -58,7 +58,7 @@ net.floodlightcontroller.odin.applications.ContentDelivery <br />
 
 **Other Wi-Cache-Controller (Odin) configuration**
 
-If DHCP is not used in the network, then each client in the network is assigned an IP addresses and a BSSID (for the LVAP). This is done in the file odin_client_list (referred in ./src/main/resources/floodlightdefault.properties). An example configuration is shown below, where the format of each row is <MAC address of the client> <IP address of the client> <LVAP BSSID> <SSID of the Wi-Cache WiFi network> <br />
+If DHCP is not used in the network, then each client in the network is assigned an IP addresses and a BSSID (for the LVAP). This is done in the file odin_client_list (referred in ./src/main/resources/floodlightdefault.properties). An example configuration is shown below, where the format of each row is (MAC address of the client, IP address of the client, LVAP BSSID, SSID of the Wi-Cache WiFi network <br />
 
 C0:25:E9:2F:5E:53 192.168.1.101 00:1B:B3:67:6B:01 wicache-bssid-test-1 <br />
 54:35:30:D6:A4:D3 192.168.1.102 00:1B:B3:67:6B:02 wicache-bssid-test-1 <br />
