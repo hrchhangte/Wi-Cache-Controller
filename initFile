@@ -1,12 +1,20 @@
+#list of Wi-Cache agents showing their IP addresses
+#and storage (in bytes) allocated for caching
 agent-configuration
 192.168.1.10	1073741824
 192.168.1.12	1073741824
 192.168.1.14	1073741824
-#
-split-files		yes
-min-chunk-size		19692761
-max-chunk-count	5
-file-coding		none
-#
-applications
-net.floodlightcontroller.odin.applications.WiCacheAppTest
+#other configurations
+#whether content should be split into multiple segments
+split-files	    yes
+min-segment-size	19692761
+max-segment-count	5
+file-coding		    none
+#the location of the initial cache configuration file
+#that contains placement of content segment across the APs
+cache-init-file     init.csv
+#the cache replacement policy used in the caches
+cache-replacement   LRU
+#The main Wi-Cache application which controls 
+#the control delivery applications
+net.floodlightcontroller.odin.applications.ContentDelivery
